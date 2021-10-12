@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useContext } from "react";
 import Banner from "../Components/Banner";
+import withFooter from "../Components/Hoc/withFooter";
 import { LOGIN_ACTION } from "../Store/Actions";
 import AppContext from "../Store/AppContext";
 
@@ -33,7 +34,7 @@ function LoginPage(props) {
                 username
             }
         });
-        props.history.push("/sessions");
+        props.history.push("/");
     }
 
     
@@ -73,4 +74,4 @@ function LoginPage(props) {
 }
 
 
-export default LoginPage;
+export default withFooter(LoginPage);

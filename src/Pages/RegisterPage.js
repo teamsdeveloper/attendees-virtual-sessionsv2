@@ -1,5 +1,6 @@
 import Banner from "../Components/Banner";
 import withFooter from "../Components/Hoc/withFooter";
+import withHeader from "../Components/Hoc/withHeader";
 
 function RegisterPage(){
     return (<>
@@ -77,4 +78,4 @@ function RegisterPage(){
     </>)
 }
 
-export default withFooter(RegisterPage);
+export default withHeader(withFooter(RegisterPage));

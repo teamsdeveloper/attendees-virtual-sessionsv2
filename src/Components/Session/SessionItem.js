@@ -1,14 +1,25 @@
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import ReactDOM from 'react-dom';
+import { Link, Redirect } from "react-router-dom";
+import Popout from "react-popout";
+import { JoinSession } from "../Join/JoinSession";
+import AppContext from "../../Store/AppContext";
+import { useHistory } from "react-router-dom";
 
-function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl, history}){
+import { JOIN_SESSION_ACTION } from "../../Store/Actions";
+
+function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl}){    
+    const {state, dispatch} = useContext(AppContext);
     
+    const history = useHistory();
+    useEffect(()=>{
+        console.log("state", state)
+    }, [state]);
     const getDate=(dt)=>{
         if(dateAndTime === undefined === undefined || dateAndTime === null)
             return null;
         let date = new Date(dt);
-        return date.toLocaleDateString("en-US");
-
-            
+        return date.toLocaleDateString("en-US");            
     }
     const getTime=(dt)=>{
         if(dateAndTime === undefined === undefined || dateAndTime === null)
@@ -16,6 +27,22 @@ function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, 
         let date = new Date(dt);        
         return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
     }
+   const onJoinClickHandler=()=>{
+       
+       if(state.user === null){
+            history.push("/login");
+            return;
+       }
+
+       if(state.isInSession){
+           alert("You are already in session");
+           return;
+       }
+
+    window.open(`/join/${id}`);
+  }
+   
+  
     //dateAndTime
     return (<div className="lgx-single-tab">
     <div className="row">
@@ -42,9 +69,12 @@ function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, 
             
         </div>
         <div className="col-xs-12 col-sm-2">
-            <Link className="lgx-scroll lgx-btn" to={`/join/${id}`}><span>Join Now</span></Link>
+            <button type="button" className="lgx-scroll lgx-btn" onClick={onJoinClickHandler}><span>Join Now</span></button>
         </div>
     </div>
+    
+    
+     
 </div>);
 }
 

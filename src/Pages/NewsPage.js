@@ -1,5 +1,6 @@
 import Banner from "../Components/Banner";
 import withFooter from "../Components/Hoc/withFooter";
+import withHeader from "../Components/Hoc/withHeader";
 
 function NewsPage(){
     return (<>
@@ -75,4 +76,4 @@ function NewsPage(){
     </>)
 }
 
-export default withFooter(NewsPage);
+export default withHeader(withFooter(NewsPage));

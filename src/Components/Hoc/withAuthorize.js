@@ -9,6 +9,7 @@ const withAuthorize=(Component)=>{
             super(props);
         }
         render(){
+            console.log("Authorize", this.context);
             return(<>
                 {this.context.state.user === null ? <Redirect to="/login"/> : <Component {...this.props}/>}
             </>);

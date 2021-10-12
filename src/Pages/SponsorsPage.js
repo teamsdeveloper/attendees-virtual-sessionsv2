@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 import Banner from "../Components/Banner";
 import withFooter from "../Components/Hoc/withFooter";
 import { GetSponsors } from "../Services/ApiService";

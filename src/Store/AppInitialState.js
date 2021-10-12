@@ -1,9 +1,5 @@
-export const AppInitialState = {
-    speakers: [],
-    sessions: [] ,
-    liveSessions: [],
-    isSpeakersFetched: false,
-    user: null,
-    sponsors: [],
-    isInSession: false
-}
+import { GetState } from "../Services/LocalStorageService"
+
+
+
+export const AppInitialState = GetState();

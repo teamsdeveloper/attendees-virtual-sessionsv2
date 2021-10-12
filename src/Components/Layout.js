@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 function Layout(props) {
     
     return (
-        <div class="lgx-container ">
+        
             <header>
                 <div id="lgx-header" className="lgx-header menu-onscroll">
                     <div className="lgx-header-inner">
@@ -26,8 +26,6 @@ function Layout(props) {
                 </div>
             </header>
         
-            {props.children}
-        </div>
     )
 }
 
