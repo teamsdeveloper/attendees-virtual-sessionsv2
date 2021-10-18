@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import { initializeIcons } from '@fluentui/font-icons-mdl2';
 import { Route, Switch } from 'react-router';
 import { withRouter } from 'react-router-dom';
 import Layout from './Components/Layout';
@@ -17,31 +18,17 @@ import { AppInitialState } from './Store/AppInitialState';
 import reducer from './Store/AppReducer';
 import "./App.css"
 import LoginPage from './Pages/LoginPage';
-import VideoPage from './Pages/VideoPage';
-import Popout from "react-popout";
+import WatchPage from './Pages/WatchPage';
+import NewJoinPage from './Pages/NewJoinPage';
 
-import { LEFT_FROM_SESSION } from './Store/Actions';
-import JoinSession from './Components/Join/JoinSession';
+initializeIcons();
 
 function App(props) {
-  const [state, dispatch] = useReducer(reducer, AppInitialState);
-
-
-  const onPopoutCloseHandler = () => {
-    dispatch({ type: LEFT_FROM_SESSION })
-  }
-  const renderPopout = () => {
-    const { joinSession } = state;
-
-    if (!joinSession)
-      return null;
-    return <Popout onClosing={onPopoutCloseHandler} title={joinSession.title}>
-      <JoinSession dispatch={dispatch} state={state} />
-    </Popout>
-  }
+  const [state, dispatch] = useReducer(reducer, AppInitialState);  
+  
   const renderLayout=()=>{
     console.log("props.location.pathname", props);
-    if(props.location.pathname.includes('/join/'))
+    if(props.location.pathname.includes('/join/') || props.location.pathname.includes('/watch'))
       return null;
     return <Layout/>    
   }
@@ -53,17 +40,16 @@ function App(props) {
           <Route exact path='/' component={HomePage} />
           <Route exact path='/speakers' component={SpeakersPage} />
           <Route exact path='/speakers/:id' component={SpeakerPage} />
-          <Route exact path='/sessions/:id/video' component={VideoPage} />
-          <Route path='/sessions' component={SessionsPage} />
+          <Route exact path='/sessions/:id/watch' component={WatchPage} />
+          <Route exact path='/sessions' component={SessionsPage} />
           <Route path='/sponsors' component={SponsorsPage} />
           <Route path='/register' component={RegisterPage} />
           <Route path='/news' component={NewsPage} />
           <Route path='/contact' component={ContactPage} />
           <Route path='/buy' component={BuyTicketsPage} />
           <Route path='/join/:id' component={JoinPage} />
-          <Route path="/login" component={LoginPage} />       
-
-      
+          <Route path="/login" component={LoginPage} />  
+          <Route path="/newjoin/:id" component={NewJoinPage} />  
       </div>
       
     </AppContext.Provider>

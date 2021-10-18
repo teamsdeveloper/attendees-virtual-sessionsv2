@@ -1,23 +1,37 @@
 import {
-    EndCallButton
-  } from '@azure/communication-react';
-  import {  DEFAULT_COMPONENT_ICONS} from '@azure/communication-react';
-  import { Stack, registerIcons } from '@fluentui/react';
+  EndCallButton
+} from '@azure/communication-react';
+
+import { DEFAULT_COMPONENT_ICONS } from '@azure/communication-react';
+import { Stack, registerIcons, Text } from '@fluentui/react';
 registerIcons({ icons: DEFAULT_COMPONENT_ICONS });
 
-function SessionTitleBar({title, showEndCallButton, onHangup}) {
-    return(
-        <div style={{ display: "flex", width: "100%", borderBottom: "1px solid" }}>
-                <div style={{ display: "flex", width: "70%" }}>
-                  <h3>{title}</h3>
-                </div>
-                {showEndCallButton === true && <div style={{ display: "flex", justifyContent: "right", width: "30%", alignItems: "center" }}>
+const mailIcon = { iconName: 'Mail' };
 
-                  <EndCallButton onClick={onHangup} />
-                </div>}
+function SessionTitleBar({ title, description, showEndCallButton, totalParticipants, unReadAnswersCount, onHangup, onAskQuestions }) {
+  return (
+    <div style={{ display: "flex", width: "100%", borderBottom: "1px solid", paddingBottom: "10px" }}>
+      <div style={{ display: "flex", width: "70%", flexDirection: "column" }}>
+        <Text variant={"xLarge"}>{title}</Text>
+        <Text variant={"small"}>{description}</Text>
+      </div>
+      <div style={{ display: "flex", justifyContent: "right", width: "30%", alignItems: "center" }}>
+        {showEndCallButton === true && <>
 
-              </div>
-    )   
+          <button type="button" className="btn btn-secondary" style={{ marginRight: "10px" }} onClick={onAskQuestions}>
+            Ask Questions  &nbsp;
+            <span className="badge badge-danger">{unReadAnswersCount}</span>
+            <span className="sr-only">unread messages</span>
+          </button>
+          <button type="button" className="btn btn-success" style={{ marginRight: "10px" }}>
+            Total attendees &nbsp;
+            <span className="badge badge-pill badge-danger disabled">{totalParticipants}</span>
+          </button>
+          <EndCallButton onClick={onHangup} />
+        </>}
+      </div>
+    </div>
+  )
 }
 
 

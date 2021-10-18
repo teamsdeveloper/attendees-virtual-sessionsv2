@@ -73,7 +73,6 @@ function SessionsPage() {
         if(loading || sessions.length > 0){
             return null;
         }
-
         return <NoDataMessage message={`No session on this date`}/>
      }
     document.body.classList.remove("home"); 
@@ -93,7 +92,7 @@ function SessionsPage() {
                                     <Days tabs={tabs} onTabClick={onTabClickHandler} active={activeTab}/>
                                     <div class="tab-content lgx-tab-content text-center">
                                         <div id="home" class="tab-pane fade in active">
-                                             {loading === false && state.sessions.length > 0 ? state.sessions.map((session, index)=><SessionItem key={index} {...session}/>): <>
+                                             {loading === false && state.sessions.length > 0 ? state.sessions.map((session, index)=><SessionItem key={index} {...session} live={false}/>): <>
                                                 {loading === true && <Spinner/>}
                                                 
                                              </>} 

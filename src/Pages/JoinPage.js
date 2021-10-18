@@ -6,6 +6,8 @@ import { CallClient, VideoStreamRenderer } from '@azure/communication-calling';
 import { AzureCommunicationTokenCredential } from '@azure/communication-common';
 import { Panel } from '@fluentui/react/lib/Panel';
 import { ChatClient } from '@azure/communication-chat';
+import {  Text} from '@fluentui/react';
+
 import {
   CallParticipant,
   CameraButton,
@@ -329,8 +331,8 @@ class JoinPage extends React.Component {
 
       {this.state.showMessageBox === true &&<MessageBox message={this.state.messageBoxText}/>}
         {this.state.session !== null && <div style={{ display: "flex", width: "100%", borderBottom: "1px solid" }}>
-          <div style={{ display: "flex", width: "70%" }}>
-            <h3>{this.state.session.title}</h3>
+          <div style={{ display: "flex", width: "70%",alignItems: "center" }}>
+            <Text variant="xLarge">{this.state.session.title}</Text>
           </div>
           {this.state.call !== null && <div style={{ display: "flex", justifyContent: "right", width: "30%", alignItems: "center" }}>
 

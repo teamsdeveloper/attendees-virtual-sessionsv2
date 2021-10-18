@@ -22,7 +22,7 @@ function LiveSessions({sessions}){
     
                                         <div class="tab-content lgx-tab-content text-center">
                                             <div id="home" class="tab-pane fade in active">
-                                                  {sessions.map((session, index)=><SessionItem key={index} {...session}/>)}  
+                                                  {sessions.map((session, index)=><SessionItem key={index} {...session} live={true}/>)}  
                                             </div>
                                         </div>
                                     </div>

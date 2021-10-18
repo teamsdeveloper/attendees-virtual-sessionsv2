@@ -78,7 +78,7 @@ function SpeakerPage(props) {
                             <div className="row">
                                 <div className="col-xs-12">
                                     <div className="lgx-tab">
-                                        {sessions.map((session, index) => <SessionItem key={index} {...session} />)}
+                                        {sessions.map((session, index) => <SessionItem key={index} {...session} live={false} />)}
                                     </div>
                                 </div>
                             </div>

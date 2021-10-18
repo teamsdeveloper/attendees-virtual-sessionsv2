@@ -24,8 +24,7 @@ function HomePage(){
         dispatch({
             type: STORE_SPEAKERS_ACTION,
             payload:speakers
-        })
-    
+        })    
     }
     
     if(state.liveSessions.length == 0){

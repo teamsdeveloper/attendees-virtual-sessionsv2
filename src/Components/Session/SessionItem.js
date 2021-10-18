@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 import { JOIN_SESSION_ACTION } from "../../Store/Actions";
 
-function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl}){    
+function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl, live}){    
     const {state, dispatch} = useContext(AppContext);
     
     const history = useHistory();
@@ -33,15 +33,32 @@ function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, 
             history.push("/login");
             return;
        }
-
        if(state.isInSession){
            alert("You are already in session");
            return;
        }
-
-    window.open(`/join/${id}`);
+       window.open(`/join/${id}`);
   }
-   
+  const onWatchClickHandle=()=>{
+    window.open(`/sessions/${id}/watch`);
+  }
+  const renderJoinOrWatchButton=()=>{
+      if(live)
+      return <button type="button" className="lgx-scroll lgx-btn" onClick={onJoinClickHandler}><span>Join Now</span></button>;
+      let sessionDate = new Date(dateAndTime);
+      console.log("sessionDate", sessionDate);
+      let cdate = new Date();
+      console.log("current date", cdate)
+      let days = Math.round((cdate-sessionDate)/(1000*60*60*24));
+      console.log("days", days);
+      if( days > 0){          
+        return <button type="button" className="lgx-scroll lgx-btn" onClick={onWatchClickHandle}><span>Watch</span></button>;
+      }
+      else{
+        return <button type="button" className="lgx-scroll lgx-btn"><span>Live soon</span></button>;
+      }
+    
+  }
   
     //dateAndTime
     return (<div className="lgx-single-tab">
@@ -69,7 +86,7 @@ function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, 
             
         </div>
         <div className="col-xs-12 col-sm-2">
-            <button type="button" className="lgx-scroll lgx-btn" onClick={onJoinClickHandler}><span>Join Now</span></button>
+            {renderJoinOrWatchButton()}
         </div>
     </div>
     

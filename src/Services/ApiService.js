@@ -28,11 +28,18 @@ async function GetSponsors(){
     let data = await response.json();
     return data;
 }
-
+async function GetSessionById(id) {
+    let response = await fetch(`${AppConfig.baseWebApiUrl}/sessions/getbyid/${id}`);
+    if(response.status !== 200)
+        return null;
+    let data = await response.json();
+    return data;
+}
 export {
     getSpeakers,
     GetSessionsByDate,
     GetSessionsBySpeaker,
     GetLiveSessions,
-    GetSponsors
+    GetSponsors,
+    GetSessionById
 }
