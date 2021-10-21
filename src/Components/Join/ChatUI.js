@@ -1,13 +1,18 @@
 import { SendBox,MessageThread  } from '@azure/communication-react';
 import { Panel,Stack } from '@fluentui/react';
-import ChatHistory from './ChatHistory';
+
 import "./ChatUI.css";
 
-function ChatUI({onDismis, onSendMessage}) {
+function ChatUI({displayName, chatHistory, chatThreadClient, onDismis}) {
+    const onSendMessageHandler=async(value)=>{
+        let sendMessageRequest = { content: value };
+        let sendMessageOptions = { senderDisplayName: displayName };
+        let sendChatMessageResult = await chatThreadClient.sendMessage(sendMessageRequest, sendMessageOptions);
+    }
     const onRenderFooterContent=()=>{
         return <Stack>
         <SendBox
-            onSendMessage={onSendMessage}
+            onSendMessage={onSendMessageHandler}
             />
         </Stack>
     }
@@ -19,7 +24,7 @@ function ChatUI({onDismis, onSendMessage}) {
         onRenderFooterContent={onRenderFooterContent}        
         isFooterAtBottom={true}        
         >
-        <MessageThread userId={'1'} messages={ChatHistory} />
+        <MessageThread userId={'1'} messages={chatHistory} />
 
       </Panel>);
 }

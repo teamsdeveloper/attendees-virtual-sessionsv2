@@ -17,8 +17,8 @@ async function GetSessionsBySpeaker(name){
     return data;
 }
 
-async function GetLiveSessions(){
-    let response = await fetch(`${AppConfig.baseWebApiUrl}/sessions/getlivesessions`);
+async function GetLiveSessions(date){
+    let response = await fetch(`${AppConfig.baseWebApiUrl}/sessions/GetByLive/${date}`);
     let data = await response.json();
     return data;
 }

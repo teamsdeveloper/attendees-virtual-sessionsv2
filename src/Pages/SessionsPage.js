@@ -11,10 +11,11 @@ import AppContext from "../Store/AppContext";
 import SessionsData from "./../Data/SessionsData";
 
 function SessionsPage() {
-    const {state, dispatch} = useContext(AppContext);
+    
     const [tabs, setTabs] = useState([]);
     const [activeTab, setActiveTab] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [sessions, setSessions] = useState([]);
     const generateTabs=()=>{
         let date = new Date();       
         let tabs = [];
@@ -53,11 +54,9 @@ function SessionsPage() {
     },[activeTab])
     const fetchSessionsFromApi=async()=>{
         if(activeTab !== null){
-           let sessions = await GetSessionsByDate(activeTab.apiDate)
-           dispatch({
-               type: STORE_SESSIONS_ACTION,
-               payload: sessions
-           })
+           let res = await GetSessionsByDate(activeTab.apiDate)
+           console.log("res", res);
+           setSessions(res)
            setLoading(false)
         }
     }
@@ -68,7 +67,7 @@ function SessionsPage() {
         
     }
     const renderNoMessage=()=>{        
-        const {sessions} = state;
+        
 
         if(loading || sessions.length > 0){
             return null;
@@ -92,7 +91,7 @@ function SessionsPage() {
                                     <Days tabs={tabs} onTabClick={onTabClickHandler} active={activeTab}/>
                                     <div class="tab-content lgx-tab-content text-center">
                                         <div id="home" class="tab-pane fade in active">
-                                             {loading === false && state.sessions.length > 0 ? state.sessions.map((session, index)=><SessionItem key={index} {...session} live={false}/>): <>
+                                             {loading === false && sessions.length > 0 ? sessions.map((session, index)=><SessionItem key={index} {...session} live={false}/>): <>
                                                 {loading === true && <Spinner/>}
                                                 
                                              </>} 

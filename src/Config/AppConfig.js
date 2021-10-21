@@ -1,5 +1,5 @@
 const AppConfig = {
-    baseWebApiUrl : "https://20.81.113.233/api",
+    baseWebApiUrl : "https:///40.65.243.207/api",
     acsEndpointUrl: "https://devcomms.communication.azure.com/"
 }
 

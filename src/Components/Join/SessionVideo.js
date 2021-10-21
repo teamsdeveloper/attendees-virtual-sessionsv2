@@ -1,9 +1,14 @@
-import { GridLayout, VideoTile   } from '@azure/communication-react';
+import { GridLayout, VideoTile,StreamMedia   } from '@azure/communication-react';
 
-function SessionVideo(params) {
-    return (<GridLayout>
-            <VideoTile displayName={'Jone Doe'} style={{backgroundColor: "#c8c6c4"}}/>
-        </GridLayout>)
+function SessionVideo({speakers}) {
+    return (<>
+        {speakers.map((speaker, index)=> <VideoTile 
+            key={index} 
+            displayName={speaker.displayName}
+            renderElement={
+                <StreamMedia videoStreamElement={speaker.videoContainer} />
+              }
+            style={{backgroundColor: "#c8c6c4"}}/>)}        </>)
 }
 
 

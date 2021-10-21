@@ -1,4 +1,4 @@
-function MessageBox(message, type) {
+function MessageBox({message, type}) {
     
     const getCssClass=()=>{
 

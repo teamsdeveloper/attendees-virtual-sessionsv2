@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 import { JOIN_SESSION_ACTION } from "../../Store/Actions";
 
-function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl, live}){    
+function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl,status}){    
     const {state, dispatch} = useContext(AppContext);
     
     const history = useHistory();
@@ -37,26 +37,19 @@ function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, 
            alert("You are already in session");
            return;
        }
-       window.open(`/join/${id}`);
+       history.push(`/join/${id}`);       
   }
   const onWatchClickHandle=()=>{
-    window.open(`/sessions/${id}/watch`);
+    history.push(`/sessions/${id}/watch`);
   }
   const renderJoinOrWatchButton=()=>{
-      if(live)
-      return <button type="button" className="lgx-scroll lgx-btn" onClick={onJoinClickHandler}><span>Join Now</span></button>;
-      let sessionDate = new Date(dateAndTime);
-      console.log("sessionDate", sessionDate);
-      let cdate = new Date();
-      console.log("current date", cdate)
-      let days = Math.round((cdate-sessionDate)/(1000*60*60*24));
-      console.log("days", days);
-      if( days > 0){          
+      if(status == "InLive")
+        return <button type="button" className="lgx-scroll lgx-btn" onClick={onJoinClickHandler}><span>Join Now</span></button>;
+      if(status === "NotYet")
+        <button type="button" className="lgx-scroll lgx-btn"><span>Live soon</span></button>;
+      if(status === "Completed")
         return <button type="button" className="lgx-scroll lgx-btn" onClick={onWatchClickHandle}><span>Watch</span></button>;
-      }
-      else{
-        return <button type="button" className="lgx-scroll lgx-btn"><span>Live soon</span></button>;
-      }
+      return null;
     
   }
   

@@ -16,40 +16,41 @@ import withFooter from "../Components/Hoc/withFooter";
 function HomePage(){
    const {state, dispatch} = useContext(AppContext);  
    const [topSpeakers, setTopSpeakers] = useState([]);
-   
-   const [loading, setLoading] = useState(false);
-   useEffect( async()=>{
-    if(state.speakers.length == 0 && state.isSpeakersFetched === false){
-        let speakers =await getSpeakers()    
-        dispatch({
-            type: STORE_SPEAKERS_ACTION,
-            payload:speakers
-        })    
+   const [liveSessions, setLiveSessions] = useState([]);
+
+    const getCurrentData=()=>{
+        let date = new Date();
+        let day =  date.toLocaleDateString("en-US", { day: 'numeric' })
+            if(day.length === 1)
+                day = `0${day}`;
+            
+        let lyear = date.toLocaleDateString("en-US", { year: 'numeric' });
+        let nmonth = date.toLocaleDateString("en-US", { month: 'numeric' });
+        return `${nmonth}-${day}-${lyear}`
     }
-    
-    if(state.liveSessions.length == 0){
-        let sessions =await GetLiveSessions()
-        dispatch({
-            type: STORE_LIVESESSIONS_ACTION,
-            payload:sessions
-        })
-    }
-    
-    
-   },[])
 
    useEffect(()=>{
-    let {speakers} = state;     
+    console.log("date", getCurrentData());
 
-     speakers = speakers.sort((a, b)=> b.rate - a.rate);
-     if(speakers.length > 0 && speakers.length <5){
-        setTopSpeakers(speakers);
-     }
-     if(speakers.length >= 5){
-         let temp = speakers.slice(0, 4);
-         setTopSpeakers(temp);
-     }
-   }, [state.speakers])
+    (async function () {
+        let date = getCurrentData();
+        let sessions =await GetLiveSessions(date)
+        setLiveSessions(sessions);
+        console.log("liveSessions", liveSessions);
+    })();
+
+    (async function () {
+      let speakers = await await getSpeakers()
+      if(speakers.length ===0)
+            return;
+    
+        let temp = speakers.slice(0, 4);
+      setTopSpeakers(temp);
+    })();
+
+   }, [])
+   
+   
    
    
    
@@ -57,7 +58,7 @@ function HomePage(){
     document.body.classList.remove("page-template");
     document.body.classList.add("home");    
     
-    const {liveSessions} = state;
+    
     console.log("top speakers", topSpeakers);
     return(<>
             <HomeSlide/>

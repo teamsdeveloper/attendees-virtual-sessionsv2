@@ -19,24 +19,18 @@ import reducer from './Store/AppReducer';
 import "./App.css"
 import LoginPage from './Pages/LoginPage';
 import WatchPage from './Pages/WatchPage';
-import NewJoinPage from './Pages/NewJoinPage';
+
 
 initializeIcons();
 
 function App(props) {
-  const [state, dispatch] = useReducer(reducer, AppInitialState);  
+  const [state, dispatch] = useReducer(reducer, AppInitialState);   
   
-  const renderLayout=()=>{
-    console.log("props.location.pathname", props);
-    if(props.location.pathname.includes('/join/') || props.location.pathname.includes('/watch'))
-      return null;
-    return <Layout/>    
-  }
   return (
 
     <AppContext.Provider value={{ state, dispatch }}>
       <div class="lgx-container ">
-          {renderLayout()}
+          <Layout/> 
           <Route exact path='/' component={HomePage} />
           <Route exact path='/speakers' component={SpeakersPage} />
           <Route exact path='/speakers/:id' component={SpeakerPage} />
@@ -49,7 +43,7 @@ function App(props) {
           <Route path='/buy' component={BuyTicketsPage} />
           <Route path='/join/:id' component={JoinPage} />
           <Route path="/login" component={LoginPage} />  
-          <Route path="/newjoin/:id" component={NewJoinPage} />  
+           
       </div>
       
     </AppContext.Provider>

@@ -38,6 +38,7 @@ function WatchPage(props) {
     },[])
 
     return(<FluentThemeProvider>
+        <Stack style={{paddingTop: "65px", margin:"5px"}}>
         {error.is === true && <MessageBar messageBarType={MessageBarType.error} style={{textAlign: "center"}}>
             {error.message}
         </MessageBar>}
@@ -45,19 +46,20 @@ function WatchPage(props) {
             <Spinner label={loader.message}/>           
         </div>}
         {session !== null &&<Stack>
-            <Stack style={{borderBottom: "1px solid gray", marginTop: "5px", paddingBottom: "5px"}}>
+            <Stack style={{borderBottom: "1px solid gray", paddingBottom: "5px"}}>
                <Text variant="xLarge"> {session.title}</Text>
+               <Text variant={"small"}>{session.description}</Text>
             </Stack>
             <Stack style={{marginTop: "5px"}}>
             <ReactVideo
                 src="https://www.example.com/url_to_video.mp4"
                 poster="https://www.example.com/poster.png"
-                primaryColor="red" 
+                primaryColor="red"
                 
             />
             </Stack>
         </Stack>}
-        
+        </Stack>
     </FluentThemeProvider>)
 }
 

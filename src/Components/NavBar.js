@@ -41,7 +41,7 @@ function NavBar(props){
                 {state.user === null &&<li><Link className="lgx-scroll" to="/login">Login</Link></li>}
                 <li><Link className="lgx-scroll" to="/news">News</Link></li>
                 <li><Link className="lgx-scroll" to="/contact">Contact</Link></li>
-                <li><Link className="lgx-scroll" to="/newjoin/1234567890">New Join</Link></li>
+                {/*<li><Link className="lgx-scroll" to="/newjoin/1234567890">New Join</Link></li>*/}
                 {/*<li><Link className="lgx-scroll lgx-btn" to="/buy"><span>Buy Ticket</span></Link></li>*/}
             </ul>
         </div>

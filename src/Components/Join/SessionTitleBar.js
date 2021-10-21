@@ -8,7 +8,9 @@ registerIcons({ icons: DEFAULT_COMPONENT_ICONS });
 
 const mailIcon = { iconName: 'Mail' };
 
-function SessionTitleBar({ title, description, showEndCallButton, totalParticipants, unReadAnswersCount, onHangup, onAskQuestions }) {
+function SessionTitleBar({ title, description, showEndCallButton, showOtherButtons, totalParticipants, unReadAnswersCount, onHangup, onAskQuestions }) {
+
+  
   return (
     <div style={{ display: "flex", width: "100%", borderBottom: "1px solid", paddingBottom: "10px" }}>
       <div style={{ display: "flex", width: "70%", flexDirection: "column" }}>
@@ -16,7 +18,7 @@ function SessionTitleBar({ title, description, showEndCallButton, totalParticipa
         <Text variant={"small"}>{description}</Text>
       </div>
       <div style={{ display: "flex", justifyContent: "right", width: "30%", alignItems: "center" }}>
-        {showEndCallButton === true && <>
+        {showOtherButtons === true && <>
 
           <button type="button" className="btn btn-secondary" style={{ marginRight: "10px" }} onClick={onAskQuestions}>
             Ask Questions  &nbsp;
@@ -27,8 +29,9 @@ function SessionTitleBar({ title, description, showEndCallButton, totalParticipa
             Total attendees &nbsp;
             <span className="badge badge-pill badge-danger disabled">{totalParticipants}</span>
           </button>
-          <EndCallButton onClick={onHangup} />
+          
         </>}
+        {showEndCallButton === true &&<EndCallButton onClick={onHangup} />}
       </div>
     </div>
   )

@@ -84,8 +84,7 @@ class JoinSession extends React.Component {
         messageBoxText: "You are already in another session."
       })
       return;
-    }
-    
+    }   
     
 
     let joinUrl = this.context.joinSession.joinUrl;

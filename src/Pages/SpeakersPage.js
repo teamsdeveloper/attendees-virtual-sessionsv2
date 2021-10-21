@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import Banner from "../Components/Banner";
 import withFooter from "../Components/Hoc/withFooter";
@@ -10,21 +10,16 @@ import AppContext from "../Store/AppContext";
 
 
 function SpeakersPage(){
-    const {state, dispatch} = useContext(AppContext);
+    const [speakers, setSpeakers] = useState([]);
     useEffect(async ()=>{
-        if(state.speakers.length == 0 && state.isSpeakersFetched === false){
-            let speakers =await getSpeakers()    
-            dispatch({
-                type:  STORE_SPEAKERS_ACTION,
-                payload:speakers
-            })
-        
-        }
-        
-    })
+      (async function () {
+          let res = await getSpeakers();
+          setSpeakers(res);
+      })();
+    },[])
     return (<>
             <Banner page={"Speakers"}/>
-            {state.speakers.length > 0 &&<Speakers speakers={state.speakers} styles={{paddingTop: "59px", paddingBottom: "5px"}}/>}
+            {speakers.length > 0 &&<Speakers speakers={speakers} styles={{paddingTop: "59px", paddingBottom: "5px"}}/>}
     </>)
 }
 
