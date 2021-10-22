@@ -8,7 +8,7 @@ import { useHistory } from "react-router-dom";
 
 import { JOIN_SESSION_ACTION } from "../../Store/Actions";
 
-function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, imageUrl,status}){    
+function SessionItem({id, title, dateAndTime, description,speakerName, recordedSessionUrl, imageUrl,status}){    
     const {state, dispatch} = useContext(AppContext);
     
     const history = useHistory();
@@ -47,7 +47,7 @@ function SessionItem({id, title, dateAndTime, description,speakerName, joinUrl, 
         return <button type="button" className="lgx-scroll lgx-btn" onClick={onJoinClickHandler}><span>Join Now</span></button>;
       if(status === "NotYet")
         <button type="button" className="lgx-scroll lgx-btn"><span>Live soon</span></button>;
-      if(status === "Completed")
+      if(status === "Completed" && recordedSessionUrl != null)
         return <button type="button" className="lgx-scroll lgx-btn" onClick={onWatchClickHandle}><span>Watch</span></button>;
       return null;
     

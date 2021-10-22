@@ -216,7 +216,7 @@ class  JoinPage extends React.Component{
                   this.setState({
                       ...this.state,
                       unreadQuestions: this.state.showQuestionPanel === false ? this.state.unreadQuestions + 1:this.state.unreadQuestions,
-                      chatHistory: [message,...this.state.chatHistory]
+                      chatHistory: [...this.state.chatHistory, message]
                   })
 
             }
@@ -270,6 +270,7 @@ class  JoinPage extends React.Component{
     addRemoteVideo= async(participant, stream,streamId)=>{
         console.log("video added");
         let videoContainer = document.createElement("div");
+        videoContainer.style.width = "100%";
         videoContainer.id = streamId;
         let renderer = new VideoStreamRenderer(stream);
         const view = await renderer.createView({ scalingMode: "Stretch" });

@@ -27,10 +27,22 @@ function WatchPage(props) {
             let csession =await GetSessionById(sessionId);
             console.log("csession", csession);
             setLoader({is: false, message: "" })
-            if(csession)
-                setSession(csession)
-            else 
-            setError({is: true, message: "session not found"})
+            if(csession !== null){
+
+                if(csession.status === "Completed" && csession.recordedSessionUrl !== null){
+                    setSession(csession)
+                }
+                else{
+                    setError({is: true, message: "Session not found or speaker didn't upload video."})    
+                }
+                
+            }
+            else{
+                setError({is: true, message: "session not found"})
+            }
+                
+            
+            
         })();
 
         
